@@ -1,0 +1,84 @@
+{% extends "templates/layouts/default.html" %}
+
+{% macro showArt(art) %}
+<div class="jumbotron" data-ks-editable="editable(user, { list: " Art ", id: art.id })">
+	<h4>
+		<a href="/art/piece/{{ art.slug }}">{{ art.title }}</a> {{ art.price }}
+	<small>Posted
+		{% if art.publishedDate %}
+			on {{ art._.publishedDate.format("MMMM Do, YYYY") }}
+		{% endif %}
+		{% if art.categories and art.categories.length %}
+			in {% for cat in art.categories %}<a href="/art/{{ cat.key }}">{{ cat.name }}</a>{% if loop.index < art.categories.length %}, {% endif %}{% endfor %}
+		{% endif %}
+		{% if art.author %}
+			by {{ art.author.name.first }}
+		{% endif %}
+	</small></h4>
+	{% if art.image.exists %}
+		<img src="{{ art._.image.fit(620,620) }}" class="img-responsive img-rounded">
+	{% endif %}
+	<p>{{ art.content.brief|safe }}</p>
+	{% if post.content.extended %}
+		<p class="read-more">
+			<a href="/art/piece/{{ art.slug }}">Read more...</a>
+		</p>
+	{% endif %}
+</div>
+{% endmacro %}
+
+{% block intro %}
+<div class="container">
+	{% set title = ( data.category.name if data.category else "Art" ) %}
+	<h1>{{ title }}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 col-md-9">
+			{% if filters.category and not data.category %}
+				<h3 class="text-muted">Invalid Category.</h3>
+			{% else %}
+				{% if data.pieces.results.length %}
+					{% if data.pieces.totalPages > 1 %}
+						<h4 class="text-weight-normal">
+							Showing
+							<strong>{{ data.pieces.first }}</strong>
+							to
+							<strong>{{ data.pieces.last }}</strong>
+							of
+							<strong>{{ data.pieces.total }}</strong>
+							posts.
+						</h4>
+					{% else %}
+						<h4 class="text-weight-normal">Showing {{ utils.plural(data.pieces.results.length, "* pieces") }}.</h4>
+					{% endif %}
+					<div class="artPiece">
+						{% for piece in data.pieces.results %} {{ showArt(piece) }} {% endfor %}
+					</div>
+		              	{% else %}
+					{% if data.category %}
+						<h3 class="text-muted">There are no posts in the category {{ data.category.name }}.</h3>
+					{% else %}
+						<h3 class="text-muted">There are no pieces yet.</h3>
+					{% endif %}
+				{% endif %}
+			{% endif %}
+		</div>
+		{% if data.categories.length %}
+			<div class="col-sm-4 col-md-3">
+				<h2>Categories</h2>
+				<div class="list-group" style="margin-top: 70px;">
+					{% set class = ( "active" if not data.category else "" ) %}
+					<a href="/art" class="{{ class }} list-group-item">All Categories</a>
+					{% for cat in data.categories %} {% set class = ( "active" if data.category and data.category.id == cat.id else "" ) %}
+						<a href="/art/{{ cat.key }}" class="{{ class }} list-group-item">{{ cat.name }} {{ cat.pieceCount}} </a>
+					{% endfor %}
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
