@@ -25,14 +25,14 @@ exports.initLocals = function(req, res, next) {
 	
 	var locals = res.locals;
 	
-	locals.navLinks = [
-		{ label: 'Home',		key: 'home',		href: '/' },
-		{ label: 'Blog',		key: 'blog',		href: '/blog' },
-                { label: 'Art',                 key: 'art',             href: '/art' },
-		{ label: 'Gallery',		key: 'gallery',		href: '/gallery' },
-		{ label: 'Contact',		key: 'contact',		href: '/contact' }
-	];
-	
+	locals.links = [];
+	keystone.list('Page').model.find().sort('order').where('state','published').exec(function(err,results){
+		if (err || !results.length) {
+                	return next(err);
+                }
+		locals.links = results;	
+	});
+
 	locals.user = req.user;
 	
 	next();

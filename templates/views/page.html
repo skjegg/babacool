@@ -1,0 +1,44 @@
+{% extends "templates/layouts/default.html" %}
+
+{% macro shortPages(page) %}
+<div class="shortpage" data-ks-editable="editable(user, { list: " Page ", id: page.id })">
+	<h2>
+		<a href="/page/{{ page.slug }}">{{ page.title }}</a>
+	</h2>
+	<p class="lead text-muted">Posted
+		{% if page.publishedDate %}
+			<br>on {{ page._.publishedDate.format("MMMM Do, YYYY") }}
+		{% endif %}
+		{% if page.author %}
+			<br>by {{ page.author.name.first }}
+		{% endif %}
+	</p>
+	{% if page.content %}
+		<p class="read-more">
+			<a href="/page/{{ page.slug }}">Read more...</a>
+		</p>
+	{% endif %}
+</div>
+{% endmacro %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12">
+			{% if filters.pageKey and not data.pages %}
+				<h3 class="text-muted">Invalid Page Key.</h3>
+			{% else %}
+				{% if data.pages.results.length == 1%}
+					<div class="page">
+						{{ data.pages.results[0].content }}
+					</div>
+				{% else %}
+					<div class="shortpages">
+                                                {% for page in data.page.results %} {{ shortPages(page) }} {% endfor %}
+                                        </div>
+				{% endif %}
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
