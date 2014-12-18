@@ -310,9 +310,10 @@ $$.onPageLoad = function(_src) {
 		// fire the onImage function to customize the loaded image's features
 		$.galleria.onImage(_img,_wrapper.siblings('.caption'),_thumb);
 		
-		// add clickable image helper
+		// add clickable image helper. Hacked to change into 'larger'
 		if($.galleria.clickNext) {
-			_img.css('cursor','pointer').click(function() { $.galleria.next(); })
+		//	_img.css('cursor','pointer').click(function() { $.galleria.next(); })
+			_img.css('cursor','pointer').click(function() { $.galleria.larger(); })
 		}
 		
 	} else {
@@ -354,6 +355,26 @@ $.extend({galleria : {
 			$$.onPageLoad(_src);
 		}
 	},
+	larger : function() {
+		var browserHeight =  $(window).height();
+		var browserWidth =  $(window).width();
+		var windowRatio = browserWidth / browserHeight;
+		
+		//var imageSelected = $('.galleria img[rel="'+$.galleria.current+'"]');
+		var imageSelected = $('.replaced');
+		console.log('got here, with ' +imageSelected.width());
+  		var height = imageSelected.height();
+  		var width = imageSelected.width();
+  		var picRatio = width / height;
+  		if(picRatio < windowRatio) {
+        		imageSelected.css({ "height": browserHeight - 180 + "px" });
+    		}
+    		else {
+        		imageSelected.css({ "width": browserWidth -150 + "px" });
+    		}
+
+	//	$.galleria.current.width=900;
+        },
 	next : function() {
 		var _next = $($$.nextSelector($('.galleria img[rel="'+$.galleria.current+'"]').parents('li'))).find('img').attr('rel');
 		$.galleria.activate(_next);
