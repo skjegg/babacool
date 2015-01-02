@@ -14,9 +14,9 @@
 */
 .galleria li img.thumb{cursor:pointer;top:auto;width:auto;height:auto;float:left}
 
-.caption {font-size: 24pt;float:right;margin-left: 2em;}
-.galleria_wrapper {width:620px;}
-.galleria_wrapper img {width:620px}
+.caption {font-size: 10pt;float:right;margin-left: 0px;width:300px;}
+.galleria_wrapper {width:100%;}
+.galleria_wrapper img {width:620px;}
 .galleria_container {display:inline-flex ;margin-left:2%}}
 
 #main_image {margin:10px;float:right}

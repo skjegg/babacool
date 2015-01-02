@@ -299,13 +299,13 @@ $$.onPageLoad = function(_src) {
 		_thumb.parents('li').addClass('active');
 	
 		// define a new image
-		var _img   = $(new Image()).attr('src',_src).addClass('replaced');
+		var _img   = $(new Image()).attr('src',_src).attr('data-featherlight','.replaced').addClass('replaced');
 
 		// empty the wrapper and insert the new image
 		_wrapper.empty().append(_img);
 
 		// insert the caption
-		_wrapper.siblings('.caption').text(_thumb.siblings('div').text());
+		_wrapper.siblings('.caption').html(_thumb.siblings('div').html());
 		
 		// fire the onImage function to customize the loaded image's features
 		$.galleria.onImage(_img,_wrapper.siblings('.caption'),_thumb);
@@ -313,7 +313,7 @@ $$.onPageLoad = function(_src) {
 		// add clickable image helper. Hacked to change into 'larger'
 		if($.galleria.clickNext) {
 		//	_img.css('cursor','pointer').click(function() { $.galleria.next(); })
-			_img.css('cursor','pointer').click(function() { $.galleria.larger(); })
+	//		_img.css('cursor','pointer').click(function() { $.galleria.larger(); })
 		}
 		
 	} else {

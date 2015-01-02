@@ -25,7 +25,7 @@ $(document).ready(function(){
 				thumb.fadeTo('fast',1).addClass('selected');
 				
 				// add a title for the clickable image
-				image.attr('title','Next image >>');
+				image.attr('title','<< Larger View >>');
 				//trackImageView(image.attr('src'));
 			},
 			onThumb : function(thumb) { // thumbnail effects goes here

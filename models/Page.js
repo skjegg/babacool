@@ -24,5 +24,5 @@ Page.add({
 });
 
 
-Page.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
+Page.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%,order|20%';
 Page.register();
