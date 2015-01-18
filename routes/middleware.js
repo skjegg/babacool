@@ -32,6 +32,13 @@ exports.initLocals = function(req, res, next) {
                 }
 		locals.links = results;	
 	});
+	locals.artCategories = [];
+	keystone.list('ArtCategory').model.find().sort('sequence').where('state','published').exec(function(err,results){
+		if(err || !results.length){
+			//return next(err);
+		}
+		locals.artCategories = results;
+	});
 
 	locals.user = req.user;
 	

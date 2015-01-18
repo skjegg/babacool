@@ -17,4 +17,6 @@ Gallery.add({
 	images: { type: Types.CloudinaryImages }
 });
 
+Gallery.relationship({ path:'pages', ref: 'Page', refPath: 'gallery'});
+
 Gallery.register();

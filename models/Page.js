@@ -21,6 +21,7 @@ Page.add({
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
 	images: { type: Types.CloudinaryImages },
 	content: {type: Types.Html, wysiwyg: true, height: 600 },
+	gallery: {type: Types.Relationship, ref: 'Gallery', index: true },
 });
 
 

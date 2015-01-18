@@ -62,11 +62,11 @@ exports = module.exports = function(req, res) {
 		
 		var q = keystone.list('Art').paginate({
 				page: req.query.page || 1,
-				perPage: 10,
+				perPage: 30,
 				maxPages: 10
 			})
 			.where('state', 'published')
-			.sort('-publishedDate')
+			.sort('sold')
 			.populate('author categories');
 		
 		if (locals.data.category) {

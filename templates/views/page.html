@@ -1,4 +1,38 @@
 {% extends "templates/layouts/default.html" %}
+{% macro carousel(page) %}
+{% if page.gallery.images[0] %}
+ <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="4000" >
+  <!-- Indicators 
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+-->
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    {% set class="active" %}
+    {% for image in page.gallery.images %}
+    <div class="item {{class}}">
+      <img src="{{ image.pad(1200,200) }}" alt="">
+    </div>
+    {% set class="" %}
+    {% endfor %}
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<p>&nbsp;</p>
+{% endif %}
+{% endmacro %}
 
 {% macro shortPages(page) %}
 <div class="shortpage" data-ks-editable="editable(user, { list: " Page ", id: page.id })">
@@ -21,6 +55,16 @@
 </div>
 {% endmacro %}
 
+{% block preheader %}
+{% if data.pages.results[0].gallery.heroImage %}
+	<div class="row">
+                <div class="col-sm-12 col-md-12">
+			<img src="{{ data.pages.results[0].gallery.heroImage.url }}" class="img-responsive"/>
+		</div>
+	</div>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <div class="container">
 	<div class="row">
@@ -30,11 +74,12 @@
 			{% else %}
 				{% if data.pages.results.length == 1%}
 					<div class="page">
+						{{ carousel(data.pages.results[0]) }}
 						{{ data.pages.results[0].content }}
 					</div>
 				{% else %}
 					<div class="shortpages">
-                                                {% for page in data.page.results %} {{ shortPages(page) }} {% endfor %}
+                                                {% for page in data.pages.results %} {{ shortPages(page) }} {% endfor %}
                                         </div>
 				{% endif %}
 			{% endif %}

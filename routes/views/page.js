@@ -29,7 +29,7 @@ exports = module.exports = function(req, res) {
                         q.where('key').in([locals.filters.pageKey]);
                 }
 
-                q.exec(function(err, results) {
+                q.populate('gallery').exec(function(err, results) {
                         locals.data.pages = results;
                         next(err);
                 });
