@@ -71,14 +71,11 @@
                                                         {% endfor %}
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							{% if user %}
-								{% if user.canAccessKeystone %}
-								<li><a href="/keystone">Open Keystone</a></li>
-								{% endif %}
-								<li><a href="/keystone/signout">Sign Out</a></li>
-							{% else %}
-								<li><a href="/keystone/signin">Sign In</a></li>
-							{% endif %}
+							<li>
+							<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-action="like" data-show-faces="true" data-share="false"></div>
+							</li>
+							<li><a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" /></a>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -120,7 +117,15 @@
 		{# Customise which Bootstrap javascript files are served by including
 			them specifically here, instead of bootstrap-3.2.0.min.js #}
 		<script src="/js/lib/bootstrap/bootstrap-3.2.0.min.js"></script>
-
+		<script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script>
+		<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>`
 		{# The KeystoneJS Content Editor provides support for ks-editable data attributes,
 			which generate links to edit content for users who can access Keystone #}
 		{% if user and user.canAccessKeystone %}
