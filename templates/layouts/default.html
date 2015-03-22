@@ -60,7 +60,7 @@
                                                                 <li class="{{ 'active' if page.key == section else '' }} dropdown">
 
 									{% set href = (page.link if page.link else '/page/'+page.key) %}
-                                                                        <a href="{{ href }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ page.title }} <span class="caret"</span></a>
+                                                                        <a href="{{ href }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ page.title }} <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">	
 									{% for category in artCategories %}
 										<li><a href="/art/{{ category.key }}">{{ category.name }}</a><li>
