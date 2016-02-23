@@ -5,7 +5,7 @@
 	<img alt="{{ art.title }}" id="activeImage" title="{{ art.title }}" src="{{ art._.image.scale(920)}}" width="620"/>
         <div class="divCaption"><h3>{{ art.title }}</h3>
 	{% if art.sold %}
-		<h4>Price:<del class="red"> ${{ art.price }}</del></h4><div class="small">Sorry, this piece has been sold. Please use the Contact form to inquire about similar pieces that are available, or that I can make special for you. </div>
+	   <h4>Price:<del class="red"> ${{ art.price }}</del></h4><div class="small">Sorry, this piece has been sold. Please <a href="/page/Contact">contact me</a> to inquire about similar pieces that are available, or that I can make special for you. </div>
 	{% else %}
 		<h4>Price: ${{ art.price }}</h4>
 	{% endif %}
