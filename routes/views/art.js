@@ -13,6 +13,7 @@ exports = module.exports = function(req, res) {
 	};
 	locals.data = {
 		pieces: [],
+		soldpieces: [],
 		categories: []
 	};
 	
@@ -66,8 +67,9 @@ exports = module.exports = function(req, res) {
 				maxPages: 10
 			})
 			.where('state', 'published')
-			.sort('sold')
-                        //.sort('-publishDate')
+			.where('sold', false)
+			.sort('-publishedDate')
+			//.sort('sold', 1)
 			.populate('author categories');
 		
 		if (locals.data.category) {
@@ -78,9 +80,31 @@ exports = module.exports = function(req, res) {
 			locals.data.pieces = results;
 			next(err);
 		});
-		
+
 	});
 	
+	view.on('init', function(next){
+
+		var q2 = keystone.list('Art').paginate({
+			page: req.query.page || 1,
+			perPage: 40,
+			maxPages: 10
+		})
+		.where('state', 'published')
+		.where('sold', true)
+		.sort('-publishedDate')
+		.populate('author categories');
+	
+		if (locals.data.category) {
+			q2.where('categories').in([locals.data.category]);
+		}
+	
+		q2.exec(function(err, results2) {
+			locals.data.soldpieces = results2;
+			next(err);
+		});
+	});
+
 	// Render the view
 	view.render('art');
 	

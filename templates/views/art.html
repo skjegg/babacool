@@ -32,7 +32,14 @@
 				{% for piece in data.pieces.results %} 
 					{{ showArt(piece, cssClass)}} 
 					{% set cssClass="" %}
-
+				{% endfor %}
+				{% if data.pieces.results.length%2 %}
+					<li></li>
+				{% endif %}
+				<li class="header"><h4>Sold</h4></li><li class="header"></li>
+				{% for piece in data.soldpieces.results %} 
+					{{ showArt(piece, cssClass)}} 
+					{% set cssClass="" %}
 				{% endfor %}
 			</ul>
 		</div>
