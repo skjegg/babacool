@@ -18,9 +18,9 @@
 .caption {font-size: 10pt;float:right;margin-left: 0px;width:300px;}
 .galleria_wrapper {width:100%;}
 .galleria_wrapper img {width:620px;}
-.galleria_container {display:inline-flex ;margin-left:2%}}
+.galleria_container {display:inline-flex ;margin-left:2%}
 
-#main_image {margin:10px;float:right}
+/*#main_image {margin:10px;float:right}*/
 
 /*
 .gallery_art li{width:68px;height:50px;border:3px double #111;background:#666666;}
